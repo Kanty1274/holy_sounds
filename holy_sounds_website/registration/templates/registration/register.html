@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>{% block title %}Create an Account{% endblock %}</title>
+    <!-- Adding the link to Bootstrap CSS file -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Create an Account</h1>
+        {% block content %}
+            <form method="POST" class="form-group">
+                {% csrf_token %}
+                <!-- Adding Bootstrap classes to the form fields -->
+                {{ form.as_p}}
+                <button type="submit" class="btn btn-success mt-3">Register</button>
+            </form>
+            <a href="{% url 'user_auth:login' %}">login page</a>
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>© 2023 holy-Sounds-band. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Successful</title>
+</head>
+<body>
+    <h2>Registration Successful</h2>
+    <p>Congratulations,</p> {{% username %}}! You have successfully registered.
+    <p>You can now <a href="{% url 'user_auth:login' %}">login</a> to your account.</p>
+
+    <footer>
+        <p>© 2023 holy-Sounds-band. All rights reserved.</p>
+    </footer>
+</body>
+</html>

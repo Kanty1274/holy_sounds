@@ -1,0 +1,54 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Sounds - Band</title>
+
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+    <header class="jumbotron text-center">
+        <h1>Welcome to Holy Sounds</h1>
+
+    <!-- Navigation buttons -->
+    <a class="nav-btn {% if request.path == '/details/' %} active {% endif %}" href="{% url 'band:details' %}">Details</a>
+    <a class="nav-btn {% if request.path == '/song-list/' %} active {% endif %}" href="{% url 'band:song_list' %}">Song List</a>
+    </header>
+
+    <article id="art5-center">
+        <img src="{% static 'assets/holy_sounds.jpg'%}" class ="center" alt="Holy Sounds">
+    </article>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <p>
+                    Holy Sounds is an amazing band that delivers soulful music to its audience. We have performed in various venues 
+                    and created a special place in the hearts of our fans. Join us on our musical journey and experience the magic of 
+                    melodies that touch your soul.
+                </p>
+
+                <!-- Add buttons here -->
+                <div class="text-center">
+                    <a href="{% url 'band:details' %}" class="btn btn-primary bt-lg active">Learn More</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link to Bootstrap JavaScript and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <footer>
+        <p>© 2023 holy-Sounds-band. All rights reserved.</p>
+    </footer>
+</body>
+</html>

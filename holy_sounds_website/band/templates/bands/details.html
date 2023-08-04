@@ -1,0 +1,79 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy Sounds - Details</title>
+
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+<body>
+    <header class="jumbotron text-center">
+        <h1>Holy Sounds Band Details</h1>
+        <!-- Navigation buttons -->
+        <a class="nav-btn {% if request.path == '/band/' %} active {% endif %}" href="{% url 'band:band' %}">Home</a>
+    </header>
+
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Name:</strong> Holy Sounds</li>
+            <li class="list-group-item"><strong>Genre:</strong> Soulful Music</li>
+            <li class="list-group-item"><strong>Origin:</strong> Johannesburg, South Africa</li>
+            <li class="list-group-item"><strong>Years Active:</strong> 2023 - Present</li>
+            <li class="list-group-item"><strong>Website:</strong> <a href="https://www.holysoundsband.com">www.holysoundsband.com</a></li>
+        </ul>
+    </div>
+    <section class="section-about">
+        <h2>About Us</h2>
+        <p>
+            Welcome to the world of Holy Sounds, a soulful and melodious band that transcends time and connects with the hearts of music lovers. 
+            Founded in [year], we have been on a musical journey, creating a harmonious fusion of emotions through our performances. 
+            Our music touches the soul and takes you on an unforgettable ride through an ocean of melodies.
+        </p>
+    </section>
+
+    <section class="section-music">
+        <h2>Our Music</h2>
+        <p>
+            At Holy Sounds, we believe in creating music that resonates with the deepest emotions. Drawing inspiration from various genres like soul, 
+            jazz, blues, and contemporary music, we craft a unique sound that captivates and uplifts our audiences. Our heartfelt lyrics and 
+            soul-stirring melodies breathe life into every performance, leaving our listeners enthralled.
+        </p>
+    </section>
+
+    <section class="section-events">
+        <h2>Upcoming Events</h2>
+        <p>
+            Stay tuned for our upcoming events and performances. We are constantly working on new music and can't wait to share it with you. 
+            Join us on this beautiful journey of melodies and emotions.
+        </p>
+    </section>
+
+    <section class="section-contact">
+        <h2>Contact Us</h2>
+        <p>
+            For booking inquiries, collaborations, or just to say hello, feel free to reach out to us. We love connecting with our fans 
+            and fellow music enthusiasts.
+        </p>
+    
+        <h2>Contact Details</h2>
+        <light>Holy Sounds Band</light><br>
+        <light>Contact Number: +27 78-369-6491</light><br>
+        <light>Email: Sinqobilekent@gmail.com</light><br>
+        <light>LinkedIn:<a href="https://www.linkedin.com/in/holy-sounds-band">LinkedIn Profile</a></light>
+    
+    </section>
+
+    <!-- Link to Bootstrap JavaScript and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <footer>
+        <p>© 2023 holy-Sounds-band. All rights reserved.</p>
+    </footer>
+</body>
+</html>
