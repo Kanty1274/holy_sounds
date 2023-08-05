@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>user_auth.views &#8212; holy_sounds-website 00.00.01 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b3523f8e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=ce80abac"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for user_auth.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="n">from</span><span class="o">.</span><span class="n">forms</span> <span class="kn">import</span> <span class="nn">LoginForm</span>
+
+
+<div class="viewcode-block" id="user_login"><a class="viewcode-back" href="../../user_auth.html#user_auth.views.user_login">[docs]</a><span class="k">def</span> <span class="nf">user_login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user login.</span>
+
+<span class="sd">    This function handles the user login process. If the HTTP request method is &#39;POST&#39;,</span>
+<span class="sd">    it attempts to validate the login form. If the form is valid, it retrieves the username</span>
+<span class="sd">    and password from the form&#39;s cleaned data and attempts to authenticate the user.</span>
+
+<span class="sd">    :param request (HttpRequest):   The HTTP request object sent by the client.</span>
+
+<span class="sd">    :returns:   HttpResponse: If the method is &#39;POST&#39; and the form is valid, the function attempts</span>
+<span class="sd">                to authenticate the user using the provided username and password. If successful,</span>
+<span class="sd">                the user is logged in, and they will have an active session. If authentication fails,</span>
+<span class="sd">                the user will remain unauthenticated, and they can try logging in again.</span>
+
+<span class="sd">                If the HTTP request method is not &#39;POST&#39;, it means the user is accessing the login</span>
+<span class="sd">                page for the first time or using the &#39;GET&#39; method. In this case, it renders the</span>
+<span class="sd">                &#39;login.html&#39; template, allowing the user to enter login credentials.</span>
+<span class="sd">            </span>
+<span class="sd">    :rtype: HttpResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">LoginForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;authentication/login.html&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="authenticate_user"><a class="viewcode-back" href="../../user_auth.html#user_auth.views.authenticate_user">[docs]</a><span class="k">def</span> <span class="nf">authenticate_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Authenticate and log in a user.</span>
+
+<span class="sd">    This function handles the authentication and login process for a user. It expects the</span>
+<span class="sd">    HTTP request to be a &#39;POST&#39; request containing the &#39;username&#39; and &#39;password&#39; fields.</span>
+
+<span class="sd">    If the &#39;username&#39; and &#39;password&#39; provided in the request match a valid user account,</span>
+<span class="sd">    the user is authenticated, and their login session is created. The function then redirects</span>
+<span class="sd">    the user to the &#39;song_list&#39; URL, where they can view a list of songs.</span>
+
+<span class="sd">    If the provided &#39;username&#39; and &#39;password&#39; do not match any valid user account, the</span>
+<span class="sd">    function redirects the user back to the &#39;login&#39; URL, where they can try logging in again.</span>
+
+<span class="sd">    :param request (HttpRequest): The HTTP request object sent by the client. It is expected to</span>
+<span class="sd">        be a &#39;POST&#39; request containing the &#39;username&#39; and &#39;password&#39; fields.</span>
+
+<span class="sd">    :returs: HttpResponseRedirect: If the user is authenticated successfully, the function</span>
+<span class="sd">        redirects the user to the &#39;song_list&#39; URL, where they can view a list of songs.</span>
+<span class="sd">        If the authentication fails, the function redirects the user back to the &#39;login&#39;</span>
+<span class="sd">        URL to try logging in again.</span>
+<span class="sd">        </span>
+<span class="sd">    :rtype: HttpResponseRedirect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;user_auth:login&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span>
+            <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;band:song_list&#39;</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="show_user"><a class="viewcode-back" href="../../user_auth.html#user_auth.views.show_user">[docs]</a><span class="k">def</span> <span class="nf">show_user</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display user information.</span>
+
+<span class="sd">    This function displays the user information on the &#39;user.html&#39; template. It retrieves the</span>
+<span class="sd">    currently logged-in user&#39;s username and password from the request&#39;s user object. However,</span>
+<span class="sd">    displaying the user&#39;s password is generally not recommended for security reasons, and in</span>
+<span class="sd">    most cases, the password should not be displayed to the user.</span>
+
+<span class="sd">    :param request (HttpRequest): The HTTP request object sent by the client.</span>
+
+<span class="sd">    :returs: HttpResponse: The rendered response containing the &#39;user.html&#39; template. The context</span>
+<span class="sd">        variables &#39;username&#39; and &#39;password&#39; will be used to display the user information.</span>
+<span class="sd">        </span>
+<span class="sd">    :rtype: HttpResponse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>  <span class="c1"># Printing the username (for debugging purposes)</span>
+
+    <span class="c1"># Retrieving the currently logged-in user&#39;s username and password.</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;authentication/user.html&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">password</span>
+    <span class="p">})</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">holy_sounds-website</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">holy_sounds_website</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Kanty.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
