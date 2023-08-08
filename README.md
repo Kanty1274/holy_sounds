@@ -73,4 +73,9 @@ the soulful and melodious Holy Sounds band from Johannesburg, South Africa.
     
     Email:Sinqobilekent@gmail.com
     LinkedIn:Holy Sounds Band LinkedIn Profile.
+
+    This project was created by [Sinqobile Kanty Moluli].
+
+Contributor 1 - [Owner]
+
         
