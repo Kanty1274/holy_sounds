@@ -2,7 +2,7 @@ import os
 import sys
 import django
 sys.path.insert(0, os.path.abspath('..'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'Your_project_name.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'holy_sounds_website.settings'
 django.setup()
 
 # Configuration file for the Sphinx documentation builder.
@@ -13,7 +13,7 @@ django.setup()
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'holy_sounds'
+project = 'holy_sounds-website'
 copyright = '2023, Kanty'
 author = 'Kanty'
 release = '00.00.01'
@@ -21,7 +21,10 @@ release = '00.00.01'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ['sphinx.ext.autodoc',
+'sphinx.ext.viewcode',
+'sphinx.ext.napoleon'
+]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
