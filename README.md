@@ -54,7 +54,7 @@ the soulful and melodious Holy Sounds band from Johannesburg, South Africa.
  3.   If you need to build the docker image again then follow these commands:               
       bash
       _**Copy code**_
-      docker docker build -t holy_sounds_website ./
+      docker build -t holy_sounds_website ./
       docker run -d -p 8000:8000 holy_sounds_website
  4.  The website should now be accessible at http://8000:8000/ in your web browser.
  6.  To stop the development server, press Ctrl + C in the terminal.
