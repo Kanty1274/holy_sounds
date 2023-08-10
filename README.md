@@ -50,17 +50,28 @@ the soulful and melodious Holy Sounds band from Johannesburg, South Africa.
 ## Running the Application
 ### Using Virtual Environment (venv)
  1.   Make sure your virtual environment is activated.
- 2.   Run the Django development server:
+ 2.   CD to holy_sounds_website
+ 3.   If you need to build the docker image again then follow these commands:               
       bash
       _**Copy code**_
-      python manage.py runserver
-
- 3.  The website should now be accessible at http://127.0.0.1:8000/ in your web browser.
- 4.  To stop the development server, press Ctrl + C in the terminal.
+      docker docker build -t holy_sounds_website ./
+      docker run -d -p 8000:8000 holy_sounds_website
+ 4.  The website should now be accessible at http://8000:8000/ in your web browser.
+ 6.  To stop the development server, press Ctrl + C in the terminal.
+### Using Docker
+ 1. Make sure your docker desktop is active
+ 2. Login to dockerhub
+ 3. Pull the  docker image:
+    bash
+      _**Copy code**_
+    docker pull sinqo/holy_sounds_website
+4. Run the image:
+5. Option for portal choose 8000 then run
+6. After running the image click on the website 8000:8000  this will take you to web page and you see the image.
 
 ## Accessing the Website
    Once the application is running, you can access the Holy Sounds website by opening your web browser and
-   navigating to **'http://127.0.0.1:8000/'**.
+   navigating to **'http://8000:8000/'**.
 
 ## Customization
    To make this website your own, follow these steps:
